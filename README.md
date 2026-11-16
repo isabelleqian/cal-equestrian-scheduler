@@ -73,24 +73,16 @@ Run the same line again for any other officer who should see the admin pages. To
    (optional for testing on your own computer: also add `http://localhost:5173/cal-equestrian-scheduler/`).
 4. Click **Save**.
 
-### 6. Let sign-in emails reach every member (important)
+### 6. Enable Google Sign-In in Supabase
 
-Supabase's built-in email sender only delivers to people on your Supabase team and only 2 emails per hour. That is
-fine for testing with your own email, but members will get "Email address not authorized" until you connect a real
-email sender. Pick one:
+The scheduler uses Google sign-in for authentication (no email rate limits or SMTP configuration needed):
 
-- **Option A: a club Gmail account.** Turn on 2-Step Verification for that Google account, then create an
-  App Password at https://myaccount.google.com/apppasswords. In Supabase open
-  **Authentication > Emails > SMTP Settings**, turn on **Enable custom SMTP**, and enter: host `smtp.gmail.com`,
-  port `587`, username = the Gmail address, password = the App Password, sender email = the Gmail address,
-  sender name `Cal Equestrian`. Save.
-- **Option B: Resend** (free tier, 3,000 emails a month). Sign up at https://resend.com, create an API key, and
-  follow their "Supabase SMTP" guide (host `smtp.resend.com`, port `465`, username `resend`, password = API key).
-  Resend asks you to verify a domain you own before sending to other people.
-- **Option C: Google sign-in instead of email links.** See "Optional: Sign in with Google" at the bottom.
-
-After custom SMTP is on, you can raise the limit in **Authentication > Rate Limits** (for example 100 emails per
-hour at the start of semester).
+1. Follow Supabase's guide at https://supabase.com/docs/guides/auth/social-login/auth-google to create a Google
+   OAuth client (OAuth 2.0 Client ID) in the Google Cloud Console.
+2. In Supabase, open **Authentication > Providers > Google**, toggle **Enable Google provider**, paste your
+   Client ID and Client Secret, and click **Save**.
+3. Under **Authentication > URL Configuration**, ensure your Site URL and Redirect URLs include:
+   `https://isabelleqian.github.io/cal-equestrian-scheduler/`
 
 ### 7. Add the two secrets to GitHub
 
@@ -159,14 +151,6 @@ workflow again.
   saved results stay.
 
 ---
-
-## Optional: Sign in with Google
-
-1. Follow Supabase's guide at https://supabase.com/docs/guides/auth/social-login/auth-google to create a Google
-   OAuth client and turn on the Google provider in **Authentication > Sign In / Providers**.
-2. In GitHub, open **Settings > Secrets and variables > Actions > Variables** tab, and add a variable named
-   `VITE_ENABLE_GOOGLE` with the value `true`.
-3. Run the deploy workflow again. A "Sign in with Google" button appears on the sign-in page.
 
 ## For developers
 

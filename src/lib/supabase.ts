@@ -4,7 +4,7 @@ const url = (import.meta.env.VITE_SUPABASE_URL as string | undefined)?.trim();
 const anonKey = (import.meta.env.VITE_SUPABASE_ANON_KEY as string | undefined)?.trim();
 
 export const isConfigured = Boolean(url && anonKey);
-export const googleEnabled = import.meta.env.VITE_ENABLE_GOOGLE === 'true';
+export const googleEnabled = true;
 
 // PKCE puts the sign-in code in the query string (?code=...), which works with
 // the hash-based router used for GitHub Pages.

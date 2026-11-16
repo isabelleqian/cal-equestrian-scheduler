@@ -6,7 +6,9 @@ import { saveMyProfile } from '../lib/api';
 export default function ProfileForm() {
   const { session, profile, refreshProfile } = useAuth();
   const nav = useNavigate();
-  const [name, setName] = useState(profile?.name ?? '');
+  const [name, setName] = useState(
+    profile?.name ?? (session?.user?.user_metadata?.full_name || session?.user?.user_metadata?.name || '')
+  );
   const [isDriver, setIsDriver] = useState<boolean | null>(profile ? profile.is_driver : null);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState('');
