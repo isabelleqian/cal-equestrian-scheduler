@@ -29,7 +29,13 @@ export default function Login() {
       options: { redirectTo: siteUrl() },
     });
     if (error) {
-      setError(error.message);
+      if (error.message.toLowerCase().includes('unsupported provider')) {
+        setError(
+          'Google Sign-In is not enabled yet in your Supabase project. To enable it: open your Supabase Dashboard > Authentication > Providers > Google, toggle "Enable Google provider", and paste your Google OAuth Client ID and Secret.'
+        );
+      } else {
+        setError(error.message);
+      }
       setBusy(false);
     }
   };

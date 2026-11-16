@@ -55,7 +55,9 @@ export default function App() {
         <main>
           <Shell />
         </main>
-        <footer className="footer">Cal Equestrian Team, UC Berkeley</footer>
+        <footer className="footer">
+          Cal Equestrian Team, UC Berkeley · <a href={`${import.meta.env.BASE_URL}privacy.html`}>Privacy Policy</a>
+        </footer>
       </HashRouter>
     </AuthProvider>
   );
